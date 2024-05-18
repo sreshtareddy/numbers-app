@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practicum 1&2</title>
+    <style>
+        .column {
+           float: left;
+           width: 33%;
+           padding: 10px;
+           box-sizing: border-box;
+          
+        }
+        .row::after {
+           content: "";
+           clear: both;
+           display: table;
+        }
+     </style>
     </head>
     <body>
         <section>
@@ -14,6 +28,15 @@
             <button onclick="add()">=</button>
             <label id="sum"></label>
         </section>
+        <div class="column">
+            <section>
+                <h2>Prime check</h2>                
+                <label>Number to test:</label>
+                <input id="numberToTest"/>
+                <button onclick="isPrime()">Check</button>
+                <label id="primeCheckResult"></label>  
+            </section>           
+        </div> 
         <script>
             async function add(){
                 let op1 = document.getElementById("operand1");
@@ -29,6 +52,15 @@
                 const sum = await response.json();
                 document.getElementById("sum").innerHTML=sum;
             }
+
+
+            async function isPrime() {
+            const numberToTest = document.getElementById("numberToTest");            
+            let n = numberToTest.value;            
+            const response = await fetch("https://primes-service-latest-3flg.onrender.com/primes/" + n);
+            const result = await response.json();
+            document.getElementById("primeCheckResult").innerText = result;
+        }
         </script>
     </body>
 </html>
